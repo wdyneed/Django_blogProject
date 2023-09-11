@@ -1,1 +1,1 @@
-# Django_blogProject
+# 장고 블로그 프로젝트
