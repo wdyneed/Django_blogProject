@@ -1,0 +1,325 @@
+/* nav 바 부분 css*/
+* {
+  font-family: 'Pretendard', sans-serif;
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.NavBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 104px;
+  position: fixed;
+  top: 0;
+  background-color: #1e1e1e;
+  width: 100%;
+  z-index: 999;
+  color: #f9f8f4;
+  text-decoration: none;
+  font-family: 'Pretendard', sans-serif;
+  left: 0;
+}
+
+.NavContainer {
+  width: 1024px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+
+a:link {
+  color: #f9f8f4;
+}
+
+a:visited {
+  color: #f9f8f4;
+}
+
+a:hover {
+  color: #f9f8f4;
+}
+
+a:active {
+  color: #f9f8f4
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+}
+
+.nav-topics {
+  display: flex;
+  gap: 40px;
+}
+
+button {
+  cursor: pointer;
+  all: unset;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.PrimaryButton {
+  display: inline-block;
+  background-color: black;
+  border-radius: 2px;
+  /* 너비와 높이가 같으므로 50%로 설정하면 동그라미 모양이 됩니다 */
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+
+  padding: 10px 25px;
+}
+
+.PrimaryButton:hover {
+  background-color: #696969;
+  transition: transform 0.8s, background-color 0.3s;
+  color: #ffffff;
+}
+
+.logout-button:hover {
+  color: rgb(255, 162, 162);
+  transition: transform 0.8s, color 0.3s;
+}
+
+.row-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 
+.Container1 {
+  position: absolute;
+  top: 104px;
+  height: 416px;
+  left: 0;
+  width: 100%;
+  background-color: #1e1e1e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+} */
+
+/*아래에서부터 상단박스 부분*/
+
+.Container1 {
+  /* position: absolute; */
+  top: 104px;
+  height: 560px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  background-color: #1e1e1e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-family: 'Pretendard', sans-serif;
+  padding: 0px;
+}
+
+
+
+.Container1 h3 {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.Container1 p {
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.Container1 .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 415px;
+  width: 900px;
+}
+
+.Container1 .container .PostInfoBox {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: -60px;
+  gap: 8px;
+  position: absolute;
+  color: #fff;
+  z-index: 1;
+  height: auto;
+  width: 40%;
+  line-height: 2;
+}
+
+.Container1 button {
+  background-color: #3a3a3a;
+  color: #f9f8f4;
+  border-radius: 2px;
+  padding: 8px 18px;
+  width: fit-content;
+  font-size: 14px
+}
+
+.Container1 button:hover {
+  background-color: #474747;
+  transition: transform 0.8s;
+}
+
+.Container1 .container .ThumbnailImg {
+  opacity: 0.3;
+  height: -webkit-fill-available;
+}
+
+.Container1 .container .ThumbnailImg img {
+  object-fit: cover;
+  min-width: 600px;
+  min-height: -webkit-fill-available;
+  width: 100%;
+  height: 100%;
+}
+
+/* 아래부터 main css*/
+main {
+  display: flex;
+  /* position: absolute; */
+  top: 620px;
+  height: 800px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  font-family: 'Pretendard', sans-serif;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.container {
+  width: 1024px;
+  margin: auto;
+  display: flex;
+  gap: 38px;
+  flex-wrap: wrap;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: calc((100% - (2 * 38px)) / 3);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card:hover {
+  transform: scale(1.01);
+  /* Slightly scale the card */
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  /* Add shadow */
+  background-color: #f5f5f5;
+  /* Change background color */
+  transition: transform 0.8s, box-shadow 0.3s, background-color 0.3s;
+}
+
+
+.CardInfoBox {
+  display: flex;
+  flex-direction: column;
+  height: 160px;
+  color: #1e1e1e;
+  font-family: 'Pretendard', sans-serif;
+  /* margin-bottom: 40px; */
+}
+
+
+h3 {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.CardInfoBox h3 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.CardInfoBox p {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.SubInfo {
+  color: #7c7c7c;
+  display: flex;
+  gap: 20px;
+  font-size: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: #111;
+}
+
+.card-thumbnail-img {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-thumbnail-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*footer 부분 css*/
+.footer {
+  width: 100%;
+  background-color: #e7e3da;
+  height: 200px;
+  display: flex;
+  justify-content: end;
+  font-family: 'Pretendard', sans-serif;
+  /* position: absolute; */
+  margin-top: 150px;
+  align-items: self-end;
+}
+
+
+.footer .container {
+  align-items: self-end;
+  display: flex;
+  margin: 0;
+  margin-right: 100px;
+  width: auto;
+}
+
+.footer .container p {
+  color: #1e1e1e;
+  justify-content: end;
+}
+
+span {
+  font-weight: bold;
+}
