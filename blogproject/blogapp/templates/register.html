@@ -7,7 +7,10 @@
     <title>signup</title>
 </head>
 <body>
-    
+    {% for message in messages %}
+    {{ message.tag }}
+    {{ message }}
+    {% endfor %}
     {% block content %}
     <h2>회원가입</h2>
     <p>비밀번호는 소문자 1개 이상 포함 8 ~ 25자 여야합니다.</p>

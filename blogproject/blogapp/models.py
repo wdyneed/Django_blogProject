@@ -17,7 +17,7 @@ class PostImage(models.Model):
 
 # 회원가입 (id, 비밀번호, 이름, 이메일)
 class User(models.Model):
-    user_id = models.CharField(max_length=50, verbose_name="유저 아이디", primary_key=True)
+    user_id = models.CharField(max_length=50, verbose_name="유저 아이디", unique=True, primary_key=True)
     user_pw = models.CharField(max_length=300, verbose_name="유저 비밀번호")
     user_name = models.CharField(max_length=20, verbose_name="유저 이름")
     user_email = models.EmailField(max_length=100, verbose_name="유저 이메일")
