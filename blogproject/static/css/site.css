@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+.PrimaryButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+main div {
+    flex: 1;
+    margin-right: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 24px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 편집기 스타일 /
+.editor-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.editor-toolbar {
+    background-color: #f0f0f0;
+    padding: 10px;
+}
+
+.editor-toolbar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.editor-content {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.editor-content p {
+    font-size: 16px;
+}
+
+/ 사이드 박스 */
+
+.sidebox_1 img {
+    width: 100%;
+    max-width: 200px;
+}
+
+.sidebox_2 p {
+    font-weight: bold;
+}
+
+.sidebox_2 label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.sidebox_3 p {
+    font-weight: bold;
+}
+
+.sidebox_3 button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #ccc;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
