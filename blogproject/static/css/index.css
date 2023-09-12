@@ -323,3 +323,8 @@ a {
 span {
   font-weight: bold;
 }
+
+.title {
+  text-decoration: none;
+  color: inherit;
+}
