@@ -32,6 +32,7 @@ class Post(models.Model):
         Category, on_delete=models.CASCADE, verbose_name="카테고리", blank=True, null=True
     )
     text = RichTextField()
+    view_count = models.PositiveIntegerField(default=1, verbose_name='조회수')
 
     def __str__(self):
         return self.title
