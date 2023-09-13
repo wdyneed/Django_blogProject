@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static "css/index.css" %}">
-    <link rel="stylesheet" href="{% static "css/navfooter.css" %}">
+    <link rel="stylesheet" href="{% static "css/site_2.css" %}">
+    <link rel="stylesheet" href="{% static "css/navfooter2.css" %}">
     <link href="
         https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css
         " rel="stylesheet">
@@ -27,71 +27,63 @@
             </div>
         </div>
     </header>
-    <div class="container">
-        <div class="box-divider">
-            <div class="big-box ">
-                <div class="post-info">
-                    <h5>2015.12.12</h5>
-                    <h1>TITLE</h1>
-                    <h5>username</h5>
-                    <div class="topic-box">tag</div>
-                    <div class="post-content">
-                        <p>Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus
-                            aliquam pellentesque.
-                            Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus id
-                            purus
-                            feugiat et mi justo scelerisque euismod euismod.</p>
-                        <img src="../static/img/Rectangle 13.png" alt=""></img>
-                        <p class=>Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus
-                            aliquam
-                            pellentesque.
-                            Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus id
-                            purus
-                            feugiat et mi justo scelerisque euismod euismod. Turpis dictumst luctus nisi placerat purus
-                            dolor luctus vitae pretium. Gravida faucibus scelerisque quis mi consequat malesuada.</p>
+    {% block contents %}
+    <main>
+        <div class="container">
+            <div class="box-divider">
+                <div class="big-box ">
+                    <div class="post-info">
+                        <h5>{{ post.published_date }}</h5>
+                        <h1>{{ post.title }}</h1>
+                        <h5>by {{ post.author_id }}</h5>
+                        <div class="topic-box">tag</div>
+                        <div class="post-content">
+                            <p> {{ post.content|safe }}</p>
                     </div>
+    
                 </div>
-
-            </div>
-            <div class="small-box">
-                <div class="another-post-box">
-                    <h3 class="post-name">Other posts
-                        you may like</h3>
-                    <div class="post-box">
-                        <img src="../static/img/Rectangle 13.png" alt="">
-                        <h3>Lorem ipsum dolor</h3>
-                    </div>
-                    <div class="post-box">
-                        <img src="../static/img/Rectangle 13.png" alt="">
-                        <h3>Lorem ipsum dolor</h3>
+                <div class="small-box">
+                    <div class="another-post-box">
+                        <h3 class="post-name">Other posts
+                            you may like</h3>
+                        <div class="post-box">
+                            <img src="../static/img/Rectangle 13.png" alt="">
+                            <h3>Lorem ipsum dolor</h3>
+                        </div>
+                        <div class="post-box">
+                            <img src="../static/img/Rectangle 13.png" alt="">
+                            <h3>Lorem ipsum dolor</h3>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="button-box">
-            <div>
-                <button class="edit-button">수정하기</button>
-                <button class="delete-button">삭제하기</button>
-            </div>
-            <button class="share-button">공유하기</button>
-        </div>
-        <div class="recommend-box">
-            <div class="recommend-divider">
-                <div class="recommend-divider2">
-                    <a>이전글</a>
-                    <a>글의 제목입니다</a>
+            <div class="button-box">
+                <div>
+                    <button class="edit-button">수정하기</button>
+                    <button class="delete-button">삭제하기</button>
                 </div>
-                <h5>2123.12.11</h5>
+                <button class="share-button">공유하기</button>
             </div>
-            <div class="recommend-divider">
-                <div class="recommend-divider2">
-                    <a>다음글</a>
-                    <a>글의 제목입니다</a>
+            <div class="recommend-box">
+                <div class="recommend-divider">
+                    <div class="recommend-divider2">
+                        <a>이전글</a>
+                        <a>글의 제목입니다</a>
+                    </div>
+                    <h5>2123.12.11</h5>
                 </div>
-                <h5>2123.12.11</h5>
+                <div class="recommend-divider">
+                    <div class="recommend-divider2">
+                        <a>다음글</a>
+                        <a>글의 제목입니다</a>
+                    </div>
+                    <h5>2123.12.11</h5>
+                </div>
             </div>
         </div>
-    </div>
+    {% endblock contents %}
+    </main>
+    
     <footer class="footer">
         <div class="container">
             <p>Made with<span> Django</span></p>
