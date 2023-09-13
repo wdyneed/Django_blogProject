@@ -56,7 +56,7 @@ def add_Post_data(request):
 
     return render(request, "blogapp/site.html")
 
-
+# 게시글 누르면 보는 테스트용 view(미완성)
 def view_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     return render(request, 'site2.html', {'post': post})
