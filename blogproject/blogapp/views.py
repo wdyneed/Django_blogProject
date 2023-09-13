@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from .models import Post, User
 from .serializers import PostSerializer
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from .forms import RegistrationForm
 from django.core.exceptions import ValidationError
 from argon2 import PasswordHasher
@@ -59,3 +59,10 @@ def custom_logout(request):
 def index(request):
     posts = Post.objects.all()
     return render(request, 'index.html', {'posts' : posts})
+
+def show_site(request):
+    return render(request, 'site.html')
+
+def view_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    return render(request, 'site2.html', {'post': post})

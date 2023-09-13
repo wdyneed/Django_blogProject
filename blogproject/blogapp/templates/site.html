@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static "css/navfooter2.css" %}">
+    <link rel="stylesheet" href="{% static "css/site.css" %}">
     <link href="
         https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css
         " rel="stylesheet">
-    <title>블로그 게시물 작성기</title>
+    
+    <title>블로그 게시물 작성</title>
 </head>
+
 <body>
     <header>
-        <div class="NavBar">
-            <a class="Logo">MYLOG</a>
-            <div class="NavContainer">
-                <a href="">일상</a>
-                <a href="">요리</a>
-                <a href="">여행</a>
-                <a href="">영화</a>
-                <a href="">IT</a>
-                <button class='PrimaryButton'>Login</button>
+        <div class="NavContainer">
+            <div class="NavBar">   
+                <a href="/"><img src="{% static "img/logo(white).svg" %}"></a>
+                <div class='nav-buttons'>
+                    <a href="">일상</a>
+                    <a href="">요리</a>
+                    <a href="">여행</a>
+                    <a href="">영화</a>
+                    <a href="">IT</a>
+                    {% if user.is_authenticated %}
+                        <a href={% url "logout" %}><button class='logout-button'>Logout</button></a>
+                        <a href="posting"><button class='PrimaryButton'>Just Write!</button></a>
+                    {% else %}
+                        <a href="login"><button class='PrimaryButton'>Login</button></a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </header>
@@ -28,56 +41,45 @@
             <input type="text" placeholder="제목"></input>
         </div>
         <!-- 메인 글 -->
-        <div class="editor-container">
-            <div class="editor-toolbar">
-                <select id="font-size" onchange="execCommand('fontSize', this.value)">
-                    <option value="0">Normal</option>
-                    <option value="1">12px</option>
-                    <option value="2">16px</option>
-                    <option value="3">20px</option>
-                    <option value="4">24px</option>
-                </select>
-                <button onclick="execCommand('bold')"><img src="../static/img/B"></button>
-                <button onclick="execCommand('italic')"><img src="../static/img/"></button>
-                <button onclick="execCommand('underline')"><img src="../static/img/"></button>
-                <button onclick="execCommand('insertOrderedList')"><img src="../static/img/"></button>
-                <button onclick="execCommand('insertUnorderedList')"<img src="../static/img/"></button>
-            </div>
-            <div class="editor-content" contenteditable="true" id="editor">
-                <p></p>
-            </div>
-        </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </form>
+        
+    </main>
+    <aside>
         <!-- 사이드 -->
         <div class="sidebox_1">
             <button>AI 글 자동완성</button>
         </div>
-        <div class="sidebox_2">
-            <p>TOPIC</p>
-            <label><input type="checkbox">일상</label>
-            <label><input type="checkbox">요리</label>
-            <label><input type="checkbox">여행</label>
-            <label><input type="checkbox">영화</label>
-            <label><input type="checkbox">IT / 전자기기</label>
-        </div>
-        <div class="sidebox_3">
-            <p>UPLOAD INFO</p>
-            <p>상태 : 미발행</p>
-            <p>이미지 업로드</p>
-            <button>임시저장</button>
-            <button>글 작성</button>
-        </div>
-    </main>
+        <form action="">
+            <div class="sidebox_2">
+                <p>TOPIC</p>
+                <label><input type="radio", value="일상" name='tag' checked>일상</label>
+                <label><input type="radio", value="요리" name='tag'>요리</label>
+                <label><input type="radio", value="여행" name='tag'>여행</label>
+                <label><input type="radio", value="영화" name='tag'>영화</label>
+                <label><input type="radio", value="IT" name='tag'>IT / 전자기기</label>
+            </div>
+            <div class="sidebox_3">
+                <p>UPLOAD INFO</p>
+                <p>상태 : 미발행</p>
+                <p>이미지 업로드</p>
+                <button>임시저장</button>
+                <button>글 작성</button>
+            </div>
+
+        </form>
+        
+    </aside>
+        
+    
     <footer class="footer">
         <div class="container">
             <p>Made with<span> Django</span></p>
 
         </div>
     </footer>
-    
-    <script>
-        function execCommand(command, value = null) {
-            document.execCommand(command, false, value);
-        }
-    </script>
+
 </body>
 </html>

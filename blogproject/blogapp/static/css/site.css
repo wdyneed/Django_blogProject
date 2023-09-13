@@ -1,16 +1,12 @@
-body {
+* {
     font-family: Arial, sans-serif;
 }
 
-
-.PrimaryButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    color: white;
-    font-weight: bold;
-}
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
 main {
     display: flex;
@@ -31,7 +27,7 @@ input[type="text"] {
     border-radius: 5px;
 }
 
-/* 편집기 스타일 /
+
 .editor-container {
     border: 1px solid #ccc;
     padding: 20px;
@@ -59,7 +55,6 @@ input[type="text"] {
     font-size: 16px;
 }
 
-/ 사이드 박스 */
 
 .sidebox_1 img {
     width: 100%;
@@ -86,11 +81,4 @@ input[type="text"] {
     margin-top: 10px;
     border: none;
     cursor: pointer;
-}
-
-footer {
-    background-color: #ccc;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
 }
