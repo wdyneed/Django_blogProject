@@ -54,7 +54,7 @@ def add_Post_data(request):
         post.save()
         return redirect("site")
 
-    return render(request, "blogapp/site.html")
+    return render(request, "site.html")
 
 # 게시글 누르면 보는 테스트용 view(미완성)
 def view_post(request, post_id):
