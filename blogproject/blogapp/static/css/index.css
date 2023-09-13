@@ -9,95 +9,6 @@ body {
   padding: 0;
 }
 
-.NavBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 104px;
-  position: fixed;
-  top: 0;
-  background-color: #1e1e1e;
-  width: 100%;
-  z-index: 999;
-  color: #f9f8f4;
-  text-decoration: none;
-  font-family: 'Pretendard', sans-serif;
-  left: 0;
-}
-
-.NavContainer {
-  width: 1024px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: auto;
-}
-
-a:link {
-  color: #f9f8f4;
-}
-
-a:visited {
-  color: #f9f8f4;
-}
-
-a:hover {
-  color: #f9f8f4;
-}
-
-a:active {
-  color: #f9f8f4
-}
-
-.nav-buttons {
-  display: flex;
-  align-items: center;
-  gap: 56px;
-}
-
-.nav-topics {
-  display: flex;
-  gap: 40px;
-}
-
-button {
-  cursor: pointer;
-  all: unset;
-}
-
-button:hover {
-  cursor: pointer;
-}
-
-.PrimaryButton {
-  display: inline-block;
-  background-color: black;
-  border-radius: 2px;
-  /* 너비와 높이가 같으므로 50%로 설정하면 동그라미 모양이 됩니다 */
-  text-decoration: none;
-  text-align: center;
-  font-weight: bold;
-
-  padding: 10px 25px;
-}
-
-.PrimaryButton:hover {
-  background-color: #696969;
-  transition: transform 0.8s, background-color 0.3s;
-  color: #ffffff;
-}
-
-.logout-button:hover {
-  color: rgb(255, 162, 162);
-  transition: transform 0.8s, color 0.3s;
-}
-
-.row-box {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
 /* 
 .Container1 {
   position: absolute;
@@ -181,7 +92,7 @@ button:hover {
 }
 
 .Container1 .container .ThumbnailImg {
-  opacity: 0.3;
+  opacity: 0.8;
   height: -webkit-fill-available;
 }
 
@@ -209,19 +120,17 @@ main {
 }
 
 
-.container {
+.container{
   width: 1024px;
   margin: auto;
+  margin-top: 40px;  
   display: flex;
-  gap: 38px;
+  gap: 38px; 
   flex-wrap: wrap;
-  height: 300px;
-  justify-content: center;
-  align-items: center;
 }
 
-.card {
-  width: calc((100% - (2 * 38px)) / 3);
+.card{
+  width: calc((100% - (2 * 38px)) / 3); 
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -261,12 +170,14 @@ h3 {
 
 .CardInfoBox p {
   font-size: 14px;
+  margin-top: 5px;
   margin-bottom: 8px;
 }
 
 .SubInfo {
   color: #7c7c7c;
   display: flex;
+  margin-top : 10px;
   gap: 20px;
   font-size: 15px;
 }

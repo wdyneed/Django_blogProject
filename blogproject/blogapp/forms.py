@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from re import match
 import re
 from argon2 import PasswordHasher
-from .models import User
+from .models import User, Post
 
 class RegistrationForm(forms.Form):
     user_name = forms.CharField(max_length=50)
@@ -38,33 +38,28 @@ class RegistrationForm(forms.Form):
             raise ValidationError("비밀번호와 비밀번호 확인이 일치하지 않습니다.")
 
         
-class LoginForm(forms.Form):                           
-    username = forms.CharField(                           
-        error_messages={                                   
-            'required': '아이디를 입력해주세요'
-        },
-        max_length=32, label="사용자이름")                   
-    
-    password = forms.CharField(
-        error_messages={
-            'required': '비밀번호를 입력해주세요'
-        },
-        widget=forms.PasswordInput, label="비밀번호")         
-    
-    def clean(self):                                          
-        cleaned_data = super().clean()
-        username = cleaned_data.get('username')
-        password = cleaned_data.get('password')
 
-        if username and password :
-            try:
-                user = User.objects.get(username=username)
-                if not PasswordHasher(password, user.user_pw):
-                    self.add_error('password', '비밀번호를 틀렸습니다.')   
-                else:
-                    self.user_id = user.id                               
-            except Exception:
-                self.add_error('username', '존재하지 않는 아이디 입니다.')   
+class CustomLoginForm(forms.Form):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'User_id', 'class': 'login-input'}),
+        label='',
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'login-input'}),
+        label='',
+    )
+
+# 이 부분은 강사님 코드 복붙해온 부분
+class BlogPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ['created_at']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['topic'].required = False
+        self.fields['publish'].required = False
+        self.fields['views'].required = False  
     
     
     

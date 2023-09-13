@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <link rel="stylesheet" href="../static/css/index.css">
-    <!-- <link rel="stylesheet" href="{% static 'nav_bar.css' %}"> -->
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+    <link rel="stylesheet" href="{% static "css/navfooter.css" %}">
+    <link href="
+        https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css
+        " rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <div class="NavBar">
-            <div class="NavContainer">
-                <img src="../static/img/Group 1.png">
-                <a href="">일상</a>
-                <a href="">요리</a>
-                <a href="">여행</a>
-                <a href="">영화</a>
-                <a href="">IT</a>
-                <button class='PrimaryButton'>Login</button>
+        <div class="NavContainer">
+            <div class="NavBar">   
+                <a href="/"><img src="../static/img/Group 1.png"></a>
+                <div class='nav-buttons'>
+                    <a href="">일상</a>
+                    <a href="">요리</a>
+                    <a href="">여행</a>
+                    <a href="">영화</a>
+                    <a href="">IT</a>
+                    {% if user.is_authenticated %}
+                        <a href="posting"><button class='PrimaryButton'>글쓰기</button></a>
+                        <a href={% url "logout" %}><button class='PrimaryButton'>Logout</button></a>
+                    {% else %}
+                        <a href="login"><button class='PrimaryButton'>Login</button></a>
+                    {% endif %}
+                    
+                </div>
             </div>
+            
         </div>
         <article class="Container1">
             <div class="container">
                 <div class="PostInfoBox">
-                    <h3 class="Maintitle">타이틀</h3>
-                    <p class="MaintitleSub">내용</p>
-                    <button class="ReadMoreBtn">READ MORE</button>
+                    <h3 class="Maintitle">{{ representpost.title }}</h3>
+                    <p class="MaintitleSub">{{ representpost.content }}</p>
+                    <a href=""><button class="ReadMoreBtn">READ MORE</button></a>
                 </div>
                 <div></div>
                 <div class="ThumbnailImg">
@@ -38,68 +49,25 @@
         </article>
     </header>
 
-
     <main>
         <div class="container">
-            <section class="card">
-                <a href="해당경로 url"><img src="../static/img/Rectangle 13.png" alt=""><a>
-                <div class="CardInfoBox">
-                    <p>date</p>
-                    <a href="" class="title"><h3>title</h3></a>
-                    <p class="SubInfo">description</p>
+            {% for post in posts %}
+                <div class="card">
+                    {% comment %} <a href="{% url 'view_post' post.id %}"> {% endcomment %}
+                        <img src="../static/img/Rectangle 13.png" class='card-thumbnail-img'>
+                        <div class="CardInfoBox">
+                            <p> {{ post.published_date }}</p>
+                            <h3>{{ post.title }}</h3>
+                            <p class="SubInfo">{{ post.content }}</p>
+                        </div>
+                    </a>
                 </div>
-            </section>
-            <section class="card">
-                <a href=""><img src="../static/img/Rectangle 13.png" alt=""><a>
-                <div class="CardInfoBox">
-                    <p>date</p>
-                    <a href="" class="title"><h3>title</h3></a>
-                    <p class="SubInfo">description</p>
-                </div>
-            </section>
-            <section class="card">
-                <a href=""><img src="../static/img/Rectangle 13.png" alt=""><a>
-                <div class="CardInfoBox">
-                    <p>date</p>
-                    <a href="" class="title"><h3>title</h3></a>
-                    <p class="SubInfo">description</p>
-                </div>
-            </section>
-        </div>
-        <div class="container">
-            <section class="card">
-                <a href=""><img src="../static/img/Rectangle 13.png" alt=""><a>
-                <p>date</p>
-                <div class="CardInfoBox">
-
-                    <a href="" class="title"><h3>title</h3></a>
-                    <p class="SubInfo">description</p>
-                </div>
-            </section>
-            <section class="card">
-                <a href=""><img src="../static/img/Rectangle 13.png" alt=""><a>
-                <h3>date</h3>
-                <div class="CardInfoBox">
-
-                    <a href="" class="title"><h3>title</h3></a>
-                    <p class="SubInfo">description</p>
-                </div>
-            </section>
-            <section class="card">
-                <a href=""><img src="../static/img/Rectangle 13.png" alt=""><a>
-                <p>date</p>
-                <div class="CardInfoBox">
-
-                    <a href="" class="title"><h3>title</h3></a>
-                    <p class="SubInfo">description</p>
-                </div>
-            </section>
+            {% endfor %}
         </div>
     </main>
     <footer class="footer">
         <div class="container">
             <p>Made with<span> Django</span></p>
-
         </div>
     </footer>
 
