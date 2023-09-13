@@ -13,7 +13,7 @@ urlpatterns = [
     path('login/', views.custom_login, name='login'),
     path('', views.index, name='site'),
     path('logout/', views.custom_logout, name='logout'),
-    path('posting/',views.add_Post_data, name='posting'),
+    path('posting/',views.board_write, name='posting'),
     path('post/<int:post_id>/', views.view_post, name='view_post')
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

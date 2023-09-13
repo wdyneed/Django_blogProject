@@ -12,6 +12,7 @@ main {
     display: flex;
     justify-content: space-between;
     margin: 20px;
+    
 }
 
 main div {
@@ -22,15 +23,24 @@ main div {
 input[type="text"] {
     width: 100%;
     padding: 10px;
-    font-size: 24px;
+    font-size: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
+.title::placeholder {
+    color:rgb(119, 118, 118);
+    opacity: 0.3;
+}
 
 .editor-container {
+    display: flex;
+    margin-top: 160px;
     border: 1px solid #ccc;
     padding: 20px;
+}
+.text-container {
+    gap:20px;
 }
 
 .editor-toolbar {

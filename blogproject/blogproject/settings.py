@@ -158,3 +158,28 @@ LOGOUT_REDIRECT_URL = '/login.html'
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+CKEDITOR_CONFIGS = {
+
+    'default': {
+
+        'toolbar': 'Custom',
+
+        'toolbar_Custom': [
+
+            ['Bold', 'Italic', 'Underline'],
+
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+
+            ['Link', 'Unlink'],
+
+            ['RemoveFormat', 'Source']
+
+        ]
+
+    }
+
+}

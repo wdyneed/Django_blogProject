@@ -1,12 +1,9 @@
 from rest_framework import viewsets
-from .models import Post, User
+from .models import Post
 from .serializers import PostSerializer
-from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
-from .forms import RegistrationForm
-from django.core.exceptions import ValidationError
+from django.shortcuts import render, redirect, get_object_or_404
 from argon2 import PasswordHasher
-from django.contrib import messages
-from .forms import CustomLoginForm
+from .forms import CustomLoginForm, PostForm
 from django.contrib.auth import authenticate, login, logout
 
 # Post 시리얼라이저인데 이 부분은 아래 index랑 비슷한 역할을 함 하지만 시리얼라이저로 구현할지 고민중
@@ -44,17 +41,19 @@ def index(request):
     return render(request, 'index.html', {'posts' : posts})
 
 
-def add_Post_data(request):
-    if request.method == "POST":
-        title = request.POST["title"]
-        content = request.POST["content"]
-        published_date = request.POST["published_date"]
-
-        post = Post(title=title, content=content, published_date=published_date)
-        post.save()
-        return redirect("site")
-
-    return render(request, "site.html")
+def board_write(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)  # request.FILES를 사용하여 이미지 처리
+        print(form)
+        if form.is_valid():
+            # 폼 데이터를 모델에 저장
+            form = form.save(commit=False)
+            form.writer = request.user  # 현재 로그인한 사용자를 작성자로 설정
+            form.save()
+            return redirect('board')  # 성공 시 홈 페이지로 리디렉션
+    else:
+        form = PostForm()
+    return render(request, 'site.html', {'form': form})
 
 # 게시글 누르면 보는 테스트용 view(미완성)
 def view_post(request, post_id):

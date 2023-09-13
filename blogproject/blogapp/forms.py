@@ -49,17 +49,19 @@ class CustomLoginForm(forms.Form):
         label='',
     )
 
-# 이 부분은 강사님 코드 복붙해온 부분
-class BlogPostForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ['created_at']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['topic'].required = False
-        self.fields['publish'].required = False
-        self.fields['views'].required = False  
+        fields = ['title', 'text'] 
+        
+        labels = {
+            'title': '',  # 레이블을 비워서 출력하지 않음
+            'text': '',   # 레이블을 비워서 출력하지 않음
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'title', 'placeholder': '제목'}),
+            'text': forms.Textarea(attrs={'class': 'text-container'}),
+        }
     
     
     
