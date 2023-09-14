@@ -63,6 +63,3 @@ class PostForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'title', 'placeholder': '제목'}),
             'content': forms.Textarea(attrs={'class': 'text-container'}),
         }
-    
-    
-    

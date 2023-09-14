@@ -92,7 +92,7 @@ body {
 }
 
 .Container1 .container .ThumbnailImg {
-  opacity: 0.8;
+  opacity: 0.3;
   height: -webkit-fill-available;
 }
 
@@ -180,6 +180,10 @@ h3 {
   margin-top : 10px;
   gap: 20px;
   font-size: 15px;
+  white-space: pre-line;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 a {
@@ -238,4 +242,9 @@ span {
 .title {
   text-decoration: none;
   color: inherit;
+}
+
+.pagination {
+  color:#1e1e1e;
+  font-size:20px;
 }

@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('login/', views.custom_login, name='login'),
     path('', views.index, name='site'),
+    path('/<int:page>', views.index, name='site'),
     path('logout/', views.custom_logout, name='logout'),
     path('posting/',views.board_write, name='posting'),
     path('post/<int:post_id>/', views.view_post, name='view_post'),

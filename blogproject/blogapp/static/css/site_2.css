@@ -43,10 +43,9 @@ body{
     align-items: center;
 }
 
-h1{
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 10px;
+h1 {
+    font: 50px;
+
 }
 
 h3{

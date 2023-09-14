@@ -6,6 +6,7 @@ from argon2 import PasswordHasher
 from .forms import CustomLoginForm, PostForm
 from django.contrib.auth import authenticate, login, logout
 from bs4 import BeautifulSoup
+from django.core.paginator import Paginator
 from django.conf import settings
 
 from django.http import JsonResponse
@@ -43,10 +44,16 @@ def custom_logout(request):
     
 # 인덱스 화면 불러오는 함수
 def index(request):
-    posts = Post.objects.all().order_by('published_date')
-    return render(request, 'index.html', {'posts' : posts})
+    representpost = Post.objects.filter(publish='Y').order_by('-view_count').first()
+    posts = Post.objects.all().order_by('published_date').exclude(id=representpost.id)
+    posts_per_page = 6
+    paginator = Paginator(posts, posts_per_page)
+    page_number = request.GET.get('page')
+    page_posts = paginator.get_page(page_number)
+    
+    return render(request, 'index.html', {'posts' : posts, 'representpost' : representpost, 'page_posts': page_posts})
 
-
+# 글 작성하는 함수
 def board_write(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)  # request.FILES를 사용하여 이미지 처리
@@ -56,11 +63,10 @@ def board_write(request):
             form = form.save(commit=False)
             form.writer = request.user  # 현재 로그인한 사용자를 작성자로 설정
             form.save()
-            return redirect('board')  # 성공 시 홈 페이지로 리디렉션
+            return redirect('/')  # 성공 시 홈 페이지로 리디렉션
     else:
         form = PostForm()
     return render(request, 'site.html', {'form': form})
-
 
 
 def view_post(request, post_id):
@@ -78,8 +84,8 @@ def view_post(request, post_id):
     post.view_count += 1
     post.save()
     # 이전/다음 게시물 가져옴
-    previous_post = Post.objects.filter(id__lt=post.id, publish='Y').order_by('-id').first()
-    next_post = Post.objects.filter(id__gt=post.id, publish='Y').order_by('id').first()
+    previous_post = Post.objects.filter(id__lt=post_id, publish='Y').order_by('-id').first()
+    next_post = Post.objects.filter(id__gt=post_id, publish='Y').order_by('id').first()
 
     # 같은 주제인 게시물들 중 최신 글 가져옴
     recommended_posts = Post.objects.filter(topic=post.topic, publish='Y').order_by('-published_date')[:2]

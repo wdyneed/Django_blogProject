@@ -27,10 +27,10 @@
                     <a href="">영화</a>
                     <a href="">IT</a>
                     {% if user.is_authenticated %}
-                    <a href={% url "logout" %}><button class='logout-button'>Logout</button></a>
-                    <a href="posting"><button class='PrimaryButton'>Just Write!</button></a>
+                        <a href={% url "logout" %}><button class='logout-button'>Logout</button></a>
+                        <a href="posting"><button class='PrimaryButton'>Just Write!</button></a>
                     {% else %}
-                    <a href="login"><button class='PrimaryButton'>Login</button></a>
+                        <a href="login"><button class='PrimaryButton'>Login</button></a>
                     {% endif %}
                 </div>
             </div>
@@ -59,7 +59,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>Made with<span> Django</span></p>
+            <p>Made with<span> MadeInDojo</span></p>
 
         </div>
     </footer>
