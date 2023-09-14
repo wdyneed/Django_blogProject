@@ -27,7 +27,7 @@
                     <a href="">영화</a>
                     <a href="">IT</a>
                     {% if user.is_authenticated %}
-                        <a href={% url "logout" %}><button class='logout-button'>Logout</button></a>
+                        <a href="/logout"><button class='logout-button'>Logout</button></a>
                         <a href="posting"><button class='PrimaryButton'>Just Write!</button></a>
                     {% else %}
                         <a href="login"><button class='PrimaryButton'>Login</button></a>
