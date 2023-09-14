@@ -245,6 +245,14 @@ span {
 }
 
 .pagination {
+  margin-top: 20px;
+  margin-left: 111px;
+  display: flex;
   color:#1e1e1e;
-  font-size:20px;
+  font-size:19px;
+}
+
+.current-page {
+  margin-top: 10px;
+  margin-left: 111px;
 }
