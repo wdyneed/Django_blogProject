@@ -52,11 +52,12 @@ class CustomLoginForm(forms.Form):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'text'] 
+        fields = ['title', 'text','image'] 
         
         labels = {
             'title': '',  # 레이블을 비워서 출력하지 않음
             'text': '',   # 레이블을 비워서 출력하지 않음
+            'image': '',
         }
         widgets = {
             'title': forms.TextInput(attrs={'class': 'title', 'placeholder': '제목'}),

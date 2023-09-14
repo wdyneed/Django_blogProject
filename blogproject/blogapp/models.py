@@ -33,11 +33,8 @@ class Post(models.Model):
     )
     text = RichTextField()
     view_count = models.PositiveIntegerField(default=1, verbose_name='조회수')
-
+    image = models.ImageField(null=True, upload_to="", blank=True)
     def __str__(self):
         return self.title
 
 
-class PostImage(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="post/%Y/%m/%d")
