@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load humanize %}
+{% load timetemplates %}
 
 <head>
     <meta charset="UTF-8">
@@ -40,8 +42,8 @@
             <div class="box-divider">
                 <div class="big-box ">
                     <div class="post-info">
-                        <h5>{{ post.published_date }} | {{ post.view_count }} views</h5>
-                        <h1>{{ post.title }}</h1>
+                        <h5>{{ post.published_date|custom_timesince }} | {{ post.view_count }} views</h5>
+                        <h1 id='h1title'>{{ post.title }}</h1>
                         <h5>by {{ post.author }}</h5>
                         <h5 class="topic-box">{{ post.topic }}</h5>
                     </div>
@@ -58,10 +60,16 @@
                   <h3>Other posts</br>you may like</h3>
                   {% for recommended_post in recommended_posts %}
                     <div class="recommend-box">
-                      {% comment %} <a href="{% url 'recommended_post_id ' %}"> {% endcomment %}
-                        {{ recommended_post.image_tag|safe }}
-                        {{ recommended_post.title }}</a>
+                      <a href='/post/{{ recommended_post.id }}'>
+                        {% if recommended_post.image %}
+                            <img src="{{ recommended_post.image.url }}">
+                        {% else %}
+                            <img src="{% static "img/기본이미지.jpg" %}">
+                        {% endif %}
+                        <p>{{ recommended_post.title }}</p>
+                      </a>
                     </div>
+                    
                   {% endfor %}
                 </div>
             </div>
@@ -74,24 +82,34 @@
                 </div>
                 <button class="share-button">공유하기</button>
             </div>
-            <div class="recommend-box">
-                <div class="recommend-divider">
-                    <div class="recommend-divider2">
-                        <a>이전글</a>
-                        <a>글의 제목입니다</a>
-                    </div>
-                    <h5>2123.12.11</h5>
+            {% if next_post %}
+            <div class="another-post-box">
+                <div class="post-box">
+                  <div>다음글</div>
+                  <div class="post-name">
+                    <a href='/post/{{ next_post.id }}'
+                      >{{ next_post.title }}</a>
+                  </div>
                 </div>
-                <div class="recommend-divider">
-                    <div class="recommend-divider2">
-                        <a>다음글</a>
-                        <a>글의 제목입니다</a>
-                    </div>
-                    <h5>2123.12.11</h5>
+                <p>{{ next_post.published_date|custom_timesince }}</p>
+              </div>
+              {% else %}
+              <div class="another-post-box"></div>
+              {% endif %}
+
+            {% if previous_post %}
+            <div class="another-post-box">
+                <div class="post-box">
+                  <div>이전글</div>
+                  <div class="post-name">
+                    <a href='/post/{{ previous_post.id }}'> {{ previous_post.title }} </a>
+                  </div>
                 </div>
+                <p> {{ previous_post.published_date|custom_timesince }} </p>
             </div>
-            
-            
+            {% else %}
+            <div class="another-post-box"></div>
+            {% endif %}
         </div>
     {% endblock contents %}
     

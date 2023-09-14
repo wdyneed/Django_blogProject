@@ -60,6 +60,11 @@ h5{
     opacity: 0.5;
 }
 
+#h1title{
+    font-size: 30px !important;
+    font-weight: 700 !important;
+}
+
 .topic-box{
     padding: 4px 9px;
     background-color: #bbbbbb;
@@ -165,7 +170,13 @@ a{
 }
 
 .recommend-box img{
-    width: 100%;
+    width: 256px;
     object-fit: cover;
-    height: 100%;
+    height: 200px;
+    margin-bottom: 8px;
+}
+
+.recommend-box p{
+    font-size:20px;
+    font-weight: 700;
 }
