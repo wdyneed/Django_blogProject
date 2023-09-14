@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static "css/site_2.css" %}">
-    <link rel="stylesheet" href="{% static "css/navfooter2.css" %}">
+    <link rel="stylesheet" href="{% static 'css/site_2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navfooter2.css' %}">
     <link href="
         https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css
         " rel="stylesheet">
@@ -17,22 +17,22 @@
     <header>
         <div class="NavBar">
             <div class="NavContainer">
-                <a href="/"><img src="{% static "img/logo(white).svg" %}"></a>
+                <a href="/"><img src="{% static " img/logo(white).svg" %}"></a>
                 <a href="">일상</a>
                 <a href="">요리</a>
                 <a href="">여행</a>
                 <a href="">영화</a>
                 <a href="">IT</a>
                 {% if user.is_authenticated %}
-                    <a href="/logout"><button class='logout-button'>Logout</button></a>
-                    <a href="/posting/"><button class='PrimaryButton'>Just Write!</button></a>
+                <a href="/logout"><button class='logout-button'>Logout</button></a>
+                <a href="/posting/"><button class='PrimaryButton'>Just Write!</button></a>
                 {% else %}
-                    <a href="/login"><button class='PrimaryButton'>Login</button></a>
+                <a href="/login"><button class='PrimaryButton'>Login</button></a>
                 {% endif %}
             </div>
         </div>
     </header>
-    
+
     {% block contents %}
     <main>
         {% comment %} 본문 들어감 {% endcomment %}
@@ -47,32 +47,38 @@
                     </div>
                     <div class="post-content">
                         {% if post.image %}
-                            <img src="{{ post.image.url }}" width="500" height="400">
+                        <img src="{{ post.image.url }}" width="500" height="400">
                         {% endif %}
                         <p> {{ post.content|safe }}</p>
                     </div>
                 </div>
-            {% comment %} 추천 글 영역 {% endcomment %}
-            <div class="small-box">
-                <div>
-                  <h3>Other posts</br>you may like</h3>
-                  {% for recommended_post in recommended_posts %}
-                    <div class="recommend-box">
-                      {% comment %} <a href="{% url 'recommended_post_id ' %}"> {% endcomment %}
-                        {{ recommended_post.image_tag|safe }}
-                        {{ recommended_post.title }}</a>
+                {% comment %} 추천 글 영역 {% endcomment %}
+                <div class="small-box">
+                    <div>
+                        <h3>Other posts</br>you may like</h3>
+                        {% for recommended_post in recommended_posts %}
+                        <div class="recommend-box">
+                            {% comment %} <a href="{% url 'recommended_post_id ' %}"> {% endcomment %}
+                                {{ recommended_post.image_tag|safe }}
+                                {{ recommended_post.title }}</a>
+                        </div>
+                        {% endfor %}
                     </div>
-                  {% endfor %}
                 </div>
             </div>
-        </div>
 
             <div class="button-box">
-                <div>
-                    <button class="edit-button">수정하기</button>
-                    <button class="delete-button">삭제하기</button>
+                {% if user.is_authenticated %}
+                <div class="box-divider" style="gap: 10px">
+                    {% comment %} 수정버튼 {% endcomment %}
+                    <a href="{% url 'blog_app:edit_post' post_id=post.id %}">
+                        <button class="edit-button">수정하기</button>
+                    </a>
+
+                    {% comment %} 삭제버튼 {% endcomment %}
+                    <button class="delete-button" data-post-id="{{ post.id }}">삭제하기</button>
                 </div>
-                <button class="share-button">공유하기</button>
+                {% endif %}
             </div>
             <div class="recommend-box">
                 <div class="recommend-divider">
@@ -90,18 +96,58 @@
                     <h5>2123.12.11</h5>
                 </div>
             </div>
-            
-            
+
+
         </div>
-    {% endblock contents %}
-    
+        {% endblock contents %}
+
     </main>
-    
+
     <footer class="footer">
         <div class="container">
             <p>Made with<span> Django</span></p>
         </div>
     </footer>
 </body>
+<script>
+    // 삭제 버튼 클릭 시 AJAX 요청 보내는 코드
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const postId = button.getAttribute('data-post-id');
+            if (confirm('정말로 삭제하시겠습니까?')) {
+                fetch(`/delete-post/${postId}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json'
+                    },
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = '/';
+                        } else {
+                            alert('삭제에 실패했습니다.');
+                        }
+                    });
+            }
+        });
+    });
+
+    // CSRF 토큰을 가져오는 함수
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
 
 </html>

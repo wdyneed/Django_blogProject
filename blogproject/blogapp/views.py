@@ -8,11 +8,13 @@ from django.contrib.auth import authenticate, login, logout
 from bs4 import BeautifulSoup
 from django.core.paginator import Paginator
 from django.conf import settings
-
 from django.http import JsonResponse
 from django.views import View
 from django.core.files.storage import default_storage
 from django.conf import settings
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Post
+from .forms import PostForm
 # Post 시리얼라이저인데 이 부분은 아래 index랑 비슷한 역할을 함 하지만 시리얼라이저로 구현할지 고민중
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -125,46 +127,28 @@ class image_upload(View):
         # 이미지 업로드 완료시 JSON 응답으로 이미지 파일의 url 반환
         return JsonResponse({'location': file_url})
     
-def create_or_update_post(request, post_id=None):
-    # 글수정 페이지의 경우
-    if post_id:
-        post = get_object_or_404(Post, id=post_id)
+#게시물 수정,삭제
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    post.delete()
+    return JsonResponse({'message': '게시물이 삭제되었습니다.'})\
     
-    # 글쓰기 페이지의 경우, 임시저장한 글이 있는지 검색 
-    else:
-        post = Post.objects.filter(author_id=request.user.username, publish='N').order_by('-created_at').first()
+def edit_post(request, post_id):
+    # 해당 post_id에 해당하는 포스트를 가져옵니다.
+    post = get_object_or_404(Post, id=post_id)
 
-    # 업로드/수정 버튼 눌렀을 떄
     if request.method == 'POST':
-        form = PostForm(request.POST, instance=post) # 폼 초기화
+        form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-
-            # 게시물 삭제
-            if 'delete-button' in request.POST:
-                post.delete() 
-                return redirect('blog_app:site') 
-
-            if not form.cleaned_data.get('topic'):
-                post.topic = '전체'
-            
-            # 임시저장 여부 설정
-            if 'temp-save-button' in request.POST:
-                post.publish = 'N'
-            else:
-                post.publish = 'Y'
-
-            # 글쓴이 설정
-            post.author_id = request.user.username
-
-            post.save()
-            return redirect('blog_app:view_post', post_id=post.id) # 업로드/수정한 페이지로 리다이렉트
-    
-    # 수정할 게시물 정보를 가지고 있는 객체를 사용해 폼을 초기화함
+            form.save()
+            # 수정이 완료되면 홈페이지('/')로 리다이렉트합니다.
+            return redirect('/')
     else:
-        form = BlogPostForm(instance=post)
+        form = PostForm(instance=post)
 
-    template = 'blog_app/write.html'
-    context = {'form': form, 'post': post, 'edit_mode': post_id is not None, 'MEDIA_URL': settings.MEDIA_URL,} #edit_mode: 글 수정 모드여부
+    context = {
+        'form': form,
+        'post': post,
+    }
 
-    return render(request, template, context)
+    return render(request, 'edit_post.html', context)
