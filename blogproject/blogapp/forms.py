@@ -59,9 +59,6 @@ class PostForm(forms.ModelForm):
             'text': '',   # 레이블을 비워서 출력하지 않음
         }
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'title', 'placeholder': '제목'}),
-            'text': forms.Textarea(attrs={'class': 'text-container'}),
+            'title': forms.TextInput(attrs={'class': 'title', 'placeholder': '제목', 'id': 'title'}),
+            'text': forms.Textarea(attrs={'class': 'text-container', 'id' : 'text'}),
         }
-    
-    
-    

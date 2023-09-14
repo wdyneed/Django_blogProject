@@ -46,7 +46,13 @@
                 <button type="submit">제출하기</button>
             </form>
         </div>
-        
+
+        <button>
+            <img ../static/img/>
+            Ai 글 자동완성
+        <button>
+
+        <button onclick="saveDraft()">임시저장</button>    
     </main>
 
     <footer class="footer">
@@ -57,4 +63,33 @@
     </footer>
 
 </body>
+<script>
+    function saveDraft() {
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+        
+    // 글 내용을 로컬 스토리지에 저장
+        localStorage.setItem('draftTitle', title);
+        localStorage.setItem('draftContent', content);
+    }
+
+    function loadDraft() {
+        const savedTitle = localStorage.getItem('draftTitle');
+        const savedContent = localStorage.getItem('draftContent');
+
+        if (savedTitle || savedContent) {
+            document.getElementById('title').value = savedTitle || '';
+            document.getElementById('content').value = savedContent || '';
+            document.getElementById('draftDisplay').innerHTML = `
+                <strong>임시 저장된 제목:</strong> ${savedTitle || '없음'}<br>
+                <strong>임시 저장된 내용:</strong><br>${savedContent || '없음'}
+            `;
+        } else {
+            alert('임시 저장된 글이 없습니다.');
+        }
+    }
+
+    // 페이지 로드 시 임시 저장된 글 불러오기
+    window.addEventListener('load', loadDraft);
+</script>
 </html>
