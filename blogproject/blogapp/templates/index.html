@@ -53,7 +53,13 @@
             {% for post in posts %}
                 <div class="card">
                     <a href='post/{{ post.id }}'>
-                        <img src="../static/img/Rectangle 13.png" class='card-thumbnail-img'>
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" class="card-thumbnail-img">
+                        {% else %}
+                            <div class="default-image" style="width: 100%; height: 100%; background-color: transparent">
+                                <!-- 여기에 기본 이미지나 텍스트를 추가할 수 있습니다. -->
+                            </div>
+                        {% endif %}
                         <div class="CardInfoBox">
                             <p> {{ post.published_date }}</p>
                             <h3>{{ post.title }}</h3>

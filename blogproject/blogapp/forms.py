@@ -52,15 +52,15 @@ class CustomLoginForm(forms.Form):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'text'] 
+        fields = ['title', 'content'] 
         
         labels = {
             'title': '',  # 레이블을 비워서 출력하지 않음
-            'text': '',   # 레이블을 비워서 출력하지 않음
+            'content': '',   # 레이블을 비워서 출력하지 않음
         }
         widgets = {
             'title': forms.TextInput(attrs={'class': 'title', 'placeholder': '제목'}),
-            'text': forms.Textarea(attrs={'class': 'text-container'}),
+            'content': forms.Textarea(attrs={'class': 'text-container'}),
         }
     
     

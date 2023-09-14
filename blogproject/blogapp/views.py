@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from argon2 import PasswordHasher
 from .forms import CustomLoginForm, PostForm
 from django.contrib.auth import authenticate, login, logout
+from bs4 import BeautifulSoup
+from django.conf import settings
 
 # Post 시리얼라이저인데 이 부분은 아래 index랑 비슷한 역할을 함 하지만 시리얼라이저로 구현할지 고민중
 class PostViewSet(viewsets.ModelViewSet):
@@ -31,13 +33,13 @@ def custom_login(request):
 def custom_logout(request):
     if request.method == 'GET':
         logout(request)
-        return redirect('/login/')
-    return redirect('/login/')
+        return redirect('/')
+    return redirect('/')
     
     
 # 인덱스 화면 불러오는 함수
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('published_date')
     return render(request, 'index.html', {'posts' : posts})
 
 
@@ -55,7 +57,40 @@ def board_write(request):
         form = PostForm()
     return render(request, 'site.html', {'form': form})
 
-# 게시글 누르면 보는 테스트용 view(미완성)
+
+
 def view_post(request, post_id):
+    # 포스트 id로 게시물 가져옴
     post = get_object_or_404(Post, id=post_id)
-    return render(request, 'site2.html', {'post': post})
+
+    if request.method == 'POST': 
+
+        # 요청에 삭제가 포함된경우
+        if 'delete-button' in request.POST:
+            post.delete()
+            return redirect('/')
+
+    # 조회수 증가 및 db에 저장
+    post.view_count += 1
+    post.save()
+    # 이전/다음 게시물 가져옴
+    previous_post = Post.objects.filter(id__lt=post.id, publish='Y').order_by('-id').first()
+    next_post = Post.objects.filter(id__gt=post.id, publish='Y').order_by('id').first()
+
+    # 같은 주제인 게시물들 중 최신 글 가져옴
+    recommended_posts = Post.objects.filter(topic=post.topic, publish='Y').order_by('-published_date')[:2]
+    # 게시물 내용에서 첫번째 이미지(썸네일) 태그 추출
+    for recommended_post in recommended_posts:
+        soup = BeautifulSoup(recommended_post.content, 'html.parser')
+        image_tag = soup.find('img')
+        recommended_post.image_tag = str(image_tag) if image_tag else ''
+    
+    context = {
+        'post': post,
+        'previous_post': previous_post,
+        'next_post': next_post,
+        'recommended_posts': recommended_posts,
+        'MEDIA_URL': settings.MEDIA_URL,
+    }
+
+    return render(request, 'site_2.html', context)
