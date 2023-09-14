@@ -8,6 +8,10 @@ from django.contrib.auth import authenticate, login, logout
 from bs4 import BeautifulSoup
 from django.conf import settings
 
+from django.http import JsonResponse
+from django.views import View
+from django.core.files.storage import default_storage
+from django.conf import settings
 # Post 시리얼라이저인데 이 부분은 아래 index랑 비슷한 역할을 함 하지만 시리얼라이저로 구현할지 고민중
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -94,3 +98,23 @@ def view_post(request, post_id):
     }
 
     return render(request, 'site_2.html', context)
+
+class image_upload(View):
+    
+    # 사용자가 이미지 업로드 하는경우 실행
+    def post(self, request):
+        
+        # file필드 사용해 요청에서 업로드한 파일 가져옴
+        file = request.FILES['file']
+        
+        # 저장 경로 생성
+        filepath = 'uploads/' + file.name
+        
+        # 파일 저장
+        filename = default_storage.save(filepath, file)
+        
+        # 파일 URL 생성
+        file_url = settings.MEDIA_URL + filename
+        
+        # 이미지 업로드 완료시 JSON 응답으로 이미지 파일의 url 반환
+        return JsonResponse({'location': file_url})
