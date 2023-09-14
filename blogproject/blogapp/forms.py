@@ -52,7 +52,7 @@ class CustomLoginForm(forms.Form):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content','image'] 
+        fields = ['title', 'content', 'topic', 'publish', 'image'] 
         
         labels = {
             'title': '',  # 레이블을 비워서 출력하지 않음
@@ -63,3 +63,5 @@ class PostForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'title', 'placeholder': '제목', 'id' : 'title'}),
             'content': forms.Textarea(attrs={'class': 'text-container', 'id' : 'content'}),
         }
+        
+#게시물
