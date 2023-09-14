@@ -4,6 +4,7 @@ from ckeditor.fields import RichTextField
 
 # Create your models here.
 
+
 class Post(models.Model):
     title = models.CharField(max_length=200, verbose_name="글 제목")
     content = RichTextField()

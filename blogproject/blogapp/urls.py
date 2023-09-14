@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PostViewSet
+from .views import PostViewSet, image_upload
 from blogapp.views import image_upload
 from . import views
 from django.conf import settings
@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 
 router = DefaultRouter()
 router.register(r'posts', PostViewSet)
-
+app_name = 'blog_app'
 urlpatterns = [
     path('api/', include(router.urls)),
     path('login/', views.custom_login, name='login'),
