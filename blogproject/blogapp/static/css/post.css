@@ -68,6 +68,9 @@ h5{
 .topic-box{
     padding: 4px 9px;
     background-color: #bbbbbb;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
 }
 
 .post-content{

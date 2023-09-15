@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/site_2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
     <link rel="stylesheet" href="{% static 'css/navfooter2.css' %}">
     <link href="
         https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css
@@ -26,10 +26,10 @@
                 <a href="">영화</a>
                 <a href="">IT</a>
                 {% if user.is_authenticated %}
-                <a href="/logout"><button class='logout-button'>Logout</button></a>
-                <a href="/posting/"><button class='PrimaryButton'>Just Write!</button></a>
+                    <a href="/logout"><button class='logout-button'>Logout</button></a>
+                    <a href="/posting/"><button class='PrimaryButton'>Just Write!</button></a>
                 {% else %}
-                <a href="/login"><button class='PrimaryButton'>Login</button></a>
+                    <a href="/login"><button class='PrimaryButton'>Login</button></a>
                 {% endif %}
             </div>
         </div>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="post-content">
                         {% if post.image %}
-                        <img src="{{ post.image.url }}" width="500" height="400">
+                            <img src="{{ post.image.url }}" width="500" height="400">
                         {% endif %}
                         <p> {{ post.content|safe }}</p>
                     </div>
@@ -66,7 +66,7 @@
                         {% else %}
                             <img src="{% static "img/기본이미지.jpg" %}">
                         {% endif %}
-                        <p>{{ recommended_post.title }}</p>
+                        <p>{{ recommended_post.title|truncatechars:14 }}</p>
                       </a>
                     </div>
                     
@@ -94,7 +94,7 @@
                   <div>다음글</div>
                   <div class="post-name">
                     <a href='/post/{{ next_post.id }}'
-                      >{{ next_post.title }}</a>
+                      >{{ next_post.title|truncatechars:25 }}</a>
                   </div>
                 </div>
                 <p>{{ next_post.published_date|custom_timesince }}</p>
@@ -108,7 +108,7 @@
                 <div class="post-box">
                   <div>이전글</div>
                   <div class="post-name">
-                    <a href='/post/{{ previous_post.id }}'> {{ previous_post.title }} </a>
+                    <a href='/post/{{ previous_post.id }}'> {{ previous_post.title|truncatechars:25 }} </a>
                   </div>
                 </div>
                 <p> {{ previous_post.published_date|custom_timesince }} </p>

@@ -47,7 +47,10 @@ def custom_logout(request):
 # 인덱스 화면 불러오는 함수
 def index(request):
     representpost = Post.objects.filter(publish='Y').order_by('-view_count').first()
-    posts = Post.objects.all().order_by('published_date').exclude(id=representpost.id)
+    if representpost:
+        posts = Post.objects.all().order_by('published_date').exclude(id=representpost.id)
+    else:
+        posts = Post.objects.all().order_by('published_date')
     posts_per_page = 6
     paginator = Paginator(posts, posts_per_page)
     page_number = request.GET.get('page')
@@ -58,16 +61,16 @@ def index(request):
 def board_write(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)  # request.FILES를 사용하여 이미지 처리
-        print(form)
         if form.is_valid():
-            # 폼 데이터를 모델에 저장
-            form = form.save(commit=False)
-            form.writer = request.user  # 현재 로그인한 사용자를 작성자로 설정
-            form.save()
+            title = form.cleaned_data['title']
+            content = form.cleaned_data['content']
+            topic = form.cleaned_data['topic']
+            post = Post(title=title, content=content, topic=topic)
+            post.save()
             return redirect('/')  # 성공 시 홈 페이지로 리디렉션
     else:
         form = PostForm()
-    return render(request, 'site.html', {'form': form})
+    return render(request, 'write.html', {'form': form})
 
 
 def view_post(request, post_id):
@@ -104,7 +107,7 @@ def view_post(request, post_id):
         'MEDIA_URL': settings.MEDIA_URL,
     }
 
-    return render(request, 'site_2.html', context)
+    return render(request, 'post.html', context)
 
 class image_upload(View):
     

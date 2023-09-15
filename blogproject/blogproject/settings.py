@@ -70,13 +70,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-        'height': 300,
-        'width': 600,
-    },
-}
 
 ROOT_URLCONF = 'blogproject.urls'
 
@@ -156,31 +149,26 @@ STATIC_ROOT = 'static'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL = '/'
-
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+CKEDITOR_THUMBNAIL_SIZE = (500, 500)
 
 CKEDITOR_CONFIGS = {
-
     'default': {
-
         'toolbar': 'Custom',
-
         'toolbar_Custom': [
-
-            ['Bold', 'Italic', 'Underline'],
-
+            ['Bold', 'Italic', 'Underline', 'Font', 'FontSize'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-
             ['Link', 'Unlink'],
-
-            ['RemoveFormat', 'Source']
-
-        ]
-
+            ['Image']
+        ],
+        'filebrowserImageUploadUrl': '/ckeditor/upload/',
+        'height': 380,
+        'width': 740,
+        'removeDialogTabs': 'image:Link;image:advanced;',
     }
-
 }

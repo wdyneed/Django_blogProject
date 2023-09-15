@@ -52,16 +52,16 @@ class CustomLoginForm(forms.Form):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'topic', 'publish', 'image'] 
-        
+        fields = ['title', 'content', 'topic']
         labels = {
             'title': '',  # 레이블을 비워서 출력하지 않음
             'content': '',   # 레이블을 비워서 출력하지 않음
-            'image': '',
+            'topic':'',
         }
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'title', 'placeholder': '제목', 'id' : 'title'}),
+            'title': forms.TextInput(attrs={'class': 'title', 'placeholder': '제목', 'id' : 'title', 'style' : 'width: 95.3%'}),
             'content': forms.Textarea(attrs={'class': 'text-container', 'id' : 'content'}),
+            'topic': forms.HiddenInput()
         }
         
 #게시물
