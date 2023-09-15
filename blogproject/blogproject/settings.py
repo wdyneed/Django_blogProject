@@ -164,7 +164,7 @@ CKEDITOR_CONFIGS = {
             ['Bold', 'Italic', 'Underline', 'Font', 'FontSize'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],
-            ['Image']
+            ['Image', 'ImageResizeHandles', 'ImageResizeEditing']
         ],
         'filebrowserImageUploadUrl': '/ckeditor/upload/',
         'height': 380,

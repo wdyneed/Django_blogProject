@@ -82,9 +82,8 @@ h5{
 .post-content img{
     display: block;
     max-width: -webkit-fill-available;
+    max-height: 500px;
     padding: 40px 0;
-    object-fit: cover;
-
 }
 
 .post-content p{
