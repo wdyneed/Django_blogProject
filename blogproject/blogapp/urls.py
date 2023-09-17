@@ -20,4 +20,5 @@ urlpatterns = [
     path('upload/', image_upload.as_view(), name='image_upload'),
     path('delete-post/<int:post_id>/', views.delete_post, name='delete_post'),
     path('post/<int:post_id>/edit/', views.edit_post, name='edit_post'),
+    path('post_list/<str:topic>/', views.index, name='post_topic')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -20,11 +20,11 @@
         <div class="NavBar">
             <div class="NavContainer">
                 <a href="/"><img src="{% static 'img/logo(white).svg' %}"></a>
-                <a href="">일상</a>
-                <a href="">요리</a>
-                <a href="">여행</a>
-                <a href="">영화</a>
-                <a href="">IT</a>
+                <a href='/post_list/일상'>일상</a>
+                <a href='/post_list/요리'>요리</a>
+                <a href='/post_list/여행'>여행</a>
+                <a href='/post_list/영화'>영화</a>
+                <a href='/post_list/IT'>IT</a>
                 {% if user.is_authenticated %}
                     <a href="/logout"><button class='logout-button'>Logout</button></a>
                     <a href="/posting/"><button class='PrimaryButton'>Just Write!</button></a>
@@ -82,11 +82,11 @@
                     <a href="{% url 'blog_app:edit_post' post_id=post.id %}">
                         <button class="edit-button">수정하기</button>
                     </a>
-
                     {% comment %} 삭제버튼 {% endcomment %}
                     <button class="delete-button" data-post-id="{{ post.id }}">삭제하기</button>
                 </div>
                 {% endif %}
+                <button class='share-button' onclick='copyUrl()'>공유하기</button>
             </div>
             {% if next_post %}
             <div class="another-post-box">
@@ -166,6 +166,14 @@
         }
         return cookieValue;
     }
+    //공유하기 버튼
+    let nowUrl = window.location.href;
+    function copyUrl(){ 
+    //nowUrl 변수에 담긴 주소를
+        navigator.clipboard.writeText(nowUrl).then(res=>{
+        alert("주소가 복사되었습니다!");
+        })
+}
 </script>
 
 </html>

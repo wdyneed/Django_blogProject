@@ -21,14 +21,14 @@
             <div class="NavBar">   
                 <a href="/"><img src="{% static "img/Group 1.png" %}"></a>
                 <div class='nav-buttons'>
-                    <a href="">일상</a>
-                    <a href="">요리</a>
-                    <a href="">여행</a>
-                    <a href="">영화</a>
-                    <a href="">IT</a>
+                    <a href='/post_list/일상'>일상</a>
+                    <a href='/post_list/요리'>요리</a>
+                    <a href='/post_list/여행'>여행</a>
+                    <a href='/post_list/영화'>영화</a>
+                    <a href='/post_list/IT'>IT</a>
                     {% if user.is_authenticated %}
                         <a href="logout"><button class='PrimaryButton'>Logout</button></a>
-                        <a href="posting"><button class='PrimaryButton'>Just Write!</button></a>
+                        <a href="/posting"><button class='PrimaryButton'>Just Write!</button></a>
                     {% else %}
                         <a href="login"><button class='PrimaryButton'>Login</button></a>
                     {% endif %}
@@ -44,7 +44,7 @@
                     <div class="PostInfoBox">
                         <h3 class="Maintitle">{{ representpost.title|truncatechars:14 }}</h3>
                         <p class="MaintitleSub">{{ representpost.content|striptags|linebreaksbr|safe|truncatechars:100 }}</p>
-                        <a href="post/{{ representpost.id }}"><button class="ReadMoreBtn">READ MORE</button></a>
+                        <a href="/post/{{ representpost.id }}"><button class="ReadMoreBtn">READ MORE</button></a>
                     </div>
                     <div></div>
                     <div class="ThumbnailImg">
@@ -70,7 +70,7 @@
         <div class="container">
             {% for post in page_posts %}
             <div class="card">
-                <a href='post/{{ post.id }}'>
+                <a href='/post/{{ post.id }}'>
                     <div class="card-thumbnail-img">
                         {% if post.image %}
                             <img src="{{ post.image.url }}">

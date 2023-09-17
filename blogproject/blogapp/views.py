@@ -45,7 +45,33 @@ def custom_logout(request):
     
     
 # 인덱스 화면 불러오는 함수
-def index(request):
+def index(request, topic=None):
+    if topic:
+        representpost = Post.objects.filter(topic=topic, publish='Y').order_by('-view_count').first()
+        if representpost:
+            posts = Post.objects.filter(topic=topic, publish='Y').order_by('-view_count').exclude(id=representpost.id)
+        else:
+            posts = Post.objects.filter(topic=topic, publish='Y').order_by('-view_count')
+        posts_per_page = 6
+        paginator = Paginator(posts, posts_per_page)
+        page_number = request.GET.get('page')
+        page_posts = paginator.get_page(page_number)
+        return render(request, 'index.html', {'posts' : posts, 'representpost' : representpost, 'page_posts': page_posts})
+    
+    else:
+        representpost = Post.objects.filter(publish='Y').order_by('-view_count').first()
+        if representpost:
+            posts = Post.objects.all().order_by('published_date').exclude(id=representpost.id)
+        else:
+            posts = Post.objects.all().order_by('published_date')
+        posts_per_page = 6
+        paginator = Paginator(posts, posts_per_page)
+        page_number = request.GET.get('page')
+        page_posts = paginator.get_page(page_number)
+        return render(request, 'index.html', {'posts' : posts, 'representpost' : representpost, 'page_posts': page_posts})
+
+    
+    
     representpost = Post.objects.filter(publish='Y').order_by('-view_count').first()
     if representpost:
         posts = Post.objects.all().order_by('published_date').exclude(id=representpost.id)
