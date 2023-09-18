@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 
 router = DefaultRouter()
 router.register(r'posts', PostViewSet)
-app_name = 'blog_app'
+app_name = 'blogapp'
 urlpatterns = [
     path('api/', include(router.urls)),
     path('login/', views.custom_login, name='login'),

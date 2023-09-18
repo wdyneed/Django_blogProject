@@ -4,7 +4,7 @@
 
 body{
     background-color: #f9f8f4;
-        font-family: 'Pretendard', sans-serif;
+    font-family: 'Pretendard', sans-serif;
 
 }
 
@@ -118,7 +118,7 @@ p{
 }
 
 textarea{
-    resize: none;
+    resize: both;
     height: 500px;
 }
 

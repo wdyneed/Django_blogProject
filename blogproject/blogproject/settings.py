@@ -155,7 +155,7 @@ CKEDITOR_IMAGE_BACKEND = 'pillow'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-CKEDITOR_THUMBNAIL_SIZE = (500, 500)
+CKEDITOR_THUMBNAIL_SIZE = (125, 125)
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -164,11 +164,12 @@ CKEDITOR_CONFIGS = {
             ['Bold', 'Italic', 'Underline', 'Font', 'FontSize'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],
-            ['Image', 'ImageResizeHandles', 'ImageResizeEditing']
+            ['Image']
         ],
         'filebrowserImageUploadUrl': '/ckeditor/upload/',
         'height': 380,
-        'width': 740,
+        'width': 'auto',
         'removeDialogTabs': 'image:Link;image:advanced;',
+        'extraPlugins': ','.join(['image2', 'uploadimage']),
     }
 }

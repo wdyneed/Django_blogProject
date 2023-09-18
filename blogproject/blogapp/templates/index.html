@@ -27,10 +27,10 @@
                     <a href='/post_list/영화'>영화</a>
                     <a href='/post_list/IT'>IT</a>
                     {% if user.is_authenticated %}
-                        <a href="logout"><button class='PrimaryButton'>Logout</button></a>
+                        <a href="/logout"><button class='PrimaryButton'>Logout</button></a>
                         <a href="/posting"><button class='PrimaryButton'>Just Write!</button></a>
                     {% else %}
-                        <a href="login"><button class='PrimaryButton'>Login</button></a>
+                        <a href="/login"><button class='PrimaryButton'>Login</button></a>
                     {% endif %}
                     
                 </div>
@@ -42,7 +42,7 @@
             <div class="container">
                 {% if representpost %}
                     <div class="PostInfoBox">
-                        <h3 class="Maintitle">{{ representpost.title|truncatechars:14 }}</h3>
+                        <h3 class="Maintitle">{{ representpost.title|truncatechars:10 }}</h3>
                         <p class="MaintitleSub">{{ representpost.content|striptags|linebreaksbr|safe|truncatechars:100 }}</p>
                         <a href="/post/{{ representpost.id }}"><button class="ReadMoreBtn">READ MORE</button></a>
                     </div>
@@ -57,7 +57,7 @@
                         {% endif %}
                     </div>
                 {% else %}
-                <h1 style="font-size:100px; margin-top:10px"> 글을 작성해주세요 </h1>
+                <h1 style="font-size:46px; margin-top:10px">작성된 글이 없어요. 새 글을 작성해보세요.</h1>
                 {% endif %}
             </div>
             {% endautoescape %}
@@ -67,7 +67,12 @@
 
     <main>
         {% autoescape off %}
+        <select id="sort-select" onchange="location = this.value;">
+            <option class="sort-recently" value="?sort=recently" {% if sort == 'recently' %}selected{% endif %}>최신순</option>
+            <option class="sort-views" value="?sort=views" {% if sort == 'views' %}selected{% endif %}>인기순</option>
+        </select>
         <div class="container">
+            
             {% for post in page_posts %}
             <div class="card">
                 <a href='/post/{{ post.id }}'>
@@ -92,26 +97,28 @@
         <div class="pagination">
             <span class="step-links">
                 {% if page_posts.has_previous %}
-                    <a href="?page=1" style="color: black;">&laquo; 처음으로</a>
-                    <a href="?page={{ page_posts.previous_page_number }}" style="color: black;">이전 페이지</a>
+                    <a href="?page=1" style="color: black;">&laquo;</a>
                 {% endif %}
+                {% for i in page_posts.paginator.page_range %}
+                    {% if i == page_posts.number %}
+                        <a class="selected" href="?page={{ i }}">{{ i }}</a>
+                    {% else %}
+                        <a style="color : black" href="?page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
                 {% if page_posts.has_next %}
-                    <a href="?page={{ page_posts.next_page_number }}" style="color: black;">다음 페이지</a>
-                    <a href="?page={{ page_posts.paginator.num_pages }}" style="color: black;">마지막 &raquo;</a>
+                    <a href="?page={{ page_posts.paginator.num_pages }}" style="color: black;">&raquo;</a>
                 {% endif %}
             </span>
         </div>
-        <span class="current-page">
-            Page {{ page_posts.number }} of {{ page_posts.paginator.num_pages }}.
-        </span>
-        
+        </form>
         {% endautoescape %}
         
     </main>
     
     <footer class="footer">
         <div class="container">
-            <p>Made with<span> Django</span></p>
+            <p>Made by<span> Dojo</span></p>
         </div>
     </footer>
 
