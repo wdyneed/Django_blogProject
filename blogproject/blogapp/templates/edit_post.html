@@ -28,9 +28,9 @@
                     <a href='/post_list/IT'>IT</a>
                     {% if user.is_authenticated %}
                         <a href="/logout"><button class='logout-button'>Logout</button></a>
-                        <a href="posting"><button class='PrimaryButton'>Just Write!</button></a>
+                        <a href="/posting"><button class='PrimaryButton'>Just Write!</button></a>
                     {% else %}
-                        <a href="login"><button class='PrimaryButton'>Login</button></a>
+                        <a href="/login"><button class='PrimaryButton'>Login</button></a>
                     {% endif %}
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <div class="box">
                       <h2>TOPIC</h2>
                       <div>
-                        <input type="radio" id="all" name="topic" value="전체">
+                        <input type="radio" id="all" name="topic" value="전체" checked='checked'>
                         <label for="all">전체</label>
                       </div>
                       <div>
