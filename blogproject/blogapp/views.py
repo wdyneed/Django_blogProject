@@ -10,7 +10,10 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views import View
 from django.core.files.storage import default_storage
-import datetime
+from django.conf import settings
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Post
+from .forms import PostForm
 
 
 # Post 시리얼라이저인데 이 부분은 아래 index랑 비슷한 역할을 함 하지만 시리얼라이저로 구현할지 고민중
@@ -110,10 +113,13 @@ def view_post(request, post_id):
             return redirect('/')
 
     # 조회수 증가 및 db에 저장
+
     if 'post_viewed_%s' % post_id not in request.session:
         post.view_count += 1
         post.save()
         request.session['post_viewed_%s' % post_id] = True
+    
+    
     # 이전/다음 게시물 가져옴
     previous_post = Post.objects.filter(id__lt=post.id, publish='Y').order_by('-id').first()
     next_post = Post.objects.filter(id__gt=post.id, publish='Y').order_by('id').first()
