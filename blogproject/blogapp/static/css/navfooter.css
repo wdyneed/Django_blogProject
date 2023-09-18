@@ -25,7 +25,7 @@ body {
 }
 
 .NavBar img {
-    margin-left: 40px;
+    margin-left: 50px;
 }
 
 .NavContainer {
@@ -80,7 +80,8 @@ button:hover {
     text-decoration: none;
     text-align: center;
     font-weight: bold;
-
+    margin-right: 20px;
+    margin-left: -10px;
     padding: 10px 25px;
 }
 
