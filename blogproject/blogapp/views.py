@@ -180,3 +180,6 @@ def edit_post(request, post_id):
     }
 
     return render(request, 'edit_post.html', context)
+
+
+    

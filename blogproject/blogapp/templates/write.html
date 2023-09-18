@@ -90,7 +90,7 @@
                           <p>공개여부: {% if edit_mode %}전체공개{% else %}미공개{% endif %}</p>
                         </div>
                         <div class="save-box">
-                            <button onclick="saveDraft()" class="temp-save-button">임시저장</button>
+                            <input type="submit" name="temp-save-button" class="temp-save-button" value="임시저장" />
                             <button type="submit" class="save-button">글 작성</button>
                         </div>
                     </div>
@@ -107,39 +107,4 @@
     </footer>
 
 </body>
-<script>
-    function saveDraft() {
-        const title = document.getElementById('title').value;
-        const content = document.getElementById('content').value;
-        
-    // 글 내용을 로컬 스토리지에 저장
-        localStorage.setItem('draftTitle', title);
-        localStorage.setItem('draftContent', content);
-    }
-
-    function loadDraft() {
-        const savedTitle = localStorage.getItem('draftTitle');
-        const savedContent = localStorage.getItem('draftContent');
-
-        if (savedTitle || savedContent) {
-            document.getElementById('title').value = savedTitle || '';
-            document.getElementById('content').value = savedContent || '';
-            document.getElementById('draftDisplay').innerHTML = `
-                <strong>임시 저장된 제목:</strong> ${savedTitle || '없음'}<br>
-                <strong>임시 저장된 내용:</strong><br>${savedContent || '없음'}
-            `;
-        } else {
-            alert('임시 저장된 글이 없습니다.');
-        }
-    }
-
-    // 페이지 로드 시 임시 저장된 글 불러오기
-    window.addEventListener('load', loadDraft);
-
-    CKEDITOR.on('dialogDefinition', function(ev) { 
-        var dialogName = ev.data.name; 
-        var dialogDefinition = ev.data.definition; 
-        if (dialogName === 'image') {
-        dialogDefinition.dialog.on('show', function() { this.selectPage('Upload'); }); } });
-</script>
 </html>
