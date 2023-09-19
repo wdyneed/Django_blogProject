@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>불러오기</title>
+</head>
+<body>
+    <h1>임시저장 불러오기</h1>
+    {% for post in posts %}
+    <div>
+        <p class='selected_post_title'>{{ post.title }}</p>
+        <p class='selected_post_content'>{{ post.content }}</p>
+        <br>
+        <button onclick="selectPost(this)">선택</button>
+        <button class='delete-button' data-post-id="{{ post.id }}">삭제</button>
+    </div>
+    {% endfor %}
+    <br>
+    <button onclick="window.close()">닫기</button>
+</body>
+<script>
+    function selectPost(button) {
+        var selectedTitle = button.parentElement.getElementsByClassName('selected_post_title')[0].textContent;
+        var selectedContent = button.parentElement.getElementsByClassName('selected_post_content')[0].textContent;
+
+        var editor = window.opener.CKEDITOR.instances['id_content'];
+        editor.setData(selectedContent)
+
+        opener.document.getElementById('title').value = selectedTitle;
+        window.close();
+    }
+
+
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const postId = button.getAttribute('data-post-id');
+            if (confirm('정말로 삭제하시겠습니까?')) {
+                fetch(`/delete-post/${postId}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json'
+                    },
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = '/popup';
+                        } else {
+                            alert('삭제에 실패했습니다.');
+                        }
+                    });
+            }
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+</html>

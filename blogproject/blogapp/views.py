@@ -14,6 +14,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
 from .forms import PostForm
+import openai
 
 
 # Post 시리얼라이저인데 이 부분은 아래 index랑 비슷한 역할을 함 하지만 시리얼라이저로 구현할지 고민중
@@ -82,9 +83,10 @@ def index(request, topic=None):
 
 # 글 작성하는 함수
 def board_write(request):
-    post = Post.objects.filter(publish="N").order_by('-published_date').first()
+    # 현재 이 부분(selected_post_id) 쓸모 없음, 코드 수정시 수정해야할듯
+    selected_post = None
     if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)  # request.FILES를 사용하여 이미지 처리
+        form = PostForm(request.POST, instance=selected_post)  # request.FILES를 사용하여 이미지 처리
         if form.is_valid():
             post = form.save(commit=False)
             title = form.cleaned_data['title']
@@ -95,11 +97,11 @@ def board_write(request):
                 post.publish = 'N'
             else:
                 post.publish = 'Y' 
-            post.save()    
+            post.save()
             return redirect('blogapp:view_post', post_id = post.id)  # 성공 시 홈 페이지로 리디렉션
     else:
-        form = PostForm(instance=post)
-    return render(request, 'write.html', {'form': form, 'post' : post})
+        form = PostForm(instance=selected_post)
+    return render(request, 'write.html', {'form': form, 'post' : selected_post})
 
 
 def view_post(request, post_id):
@@ -161,7 +163,7 @@ class image_upload(View):
 def delete_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     post.delete()
-    return JsonResponse({'message': '게시물이 삭제되었습니다.'})\
+    return JsonResponse({'message': '게시물이 삭제되었습니다.'})
     
 def edit_post(request, post_id):
     # 해당 post_id에 해당하는 포스트를 가져옵니다.
@@ -184,4 +186,27 @@ def edit_post(request, post_id):
     return render(request, 'edit_post.html', context)
 
 
-    
+def autocomplete(request):
+    openai.api_key = settings.API_KEY
+    if request.method == "POST":
+
+        #제목 필드값 가져옴
+        prompt = request.POST.get('title')
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": prompt},
+                ],
+            )
+            # 반환된 응답에서 텍스트 추출해 변수에 저장
+            message = response['choices'][0]['message']['content']
+        except Exception as e:
+            message = str(e)
+        return JsonResponse({"message": message})
+    return render(request, 'autocomplete.html')
+
+def temp_save(request):
+    posts = Post.objects.filter(publish='N').order_by('-published_date')
+    return render(request, 'popup.html', {'posts' : posts})

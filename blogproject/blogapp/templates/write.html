@@ -94,6 +94,7 @@
                           <h2>UPLOAD INFO</h2>
                           <p>공개여부: {% if edit_mode %}전체공개{% else %}미공개{% endif %}</p>
                         </div>
+                        <a href="" onclick="openPopup()">임시저장 리스트</a>
                         <div class="save-box">
                             <button type="submit" class="temp-save-button" name='temp-save-button'>임시저장</button>
                             <button type="submit" class="save-button">글 작성</button>
@@ -112,4 +113,43 @@
     </footer>
 
 </body>
+<script>
+    document.getElementById('aiAutocompleteButton').addEventListener('click', function() {
+        // 로딩 애니메이션 
+        document.getElementById('loading-animation').style.display = 'block';
+        document.getElementById('ai-img').style.display = 'none';
+
+        let title = document.getElementById('title').value;
+        var editorInstanceName = 'id_content'
+        fetch('/autocomplete/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': '{{ csrf_token }}',
+          },
+          body: new URLSearchParams({
+            'title': title
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('loading-animation').style.display = 'none';
+          document.getElementById('ai-img').style.display = 'block';
+      
+          //기존 내용에 자동완성 된 내용 더함
+          let currentdata = CKEDITOR.instances['id_content'].getData();
+        data_message = data.message.replace(/<br\s*[\/]?>/gi, '\n');
+        CKEDITOR.instances['id_content'].setData(currentdata + data_message);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          document.getElementById('loading-animation').style.display = 'none';
+        });
+      });
+
+
+    function openPopup() {
+        var popup = window.open("{% url 'blogapp:popup' %}", "Popup", "width=400,height=400");
+    }
+</script>
 </html>
