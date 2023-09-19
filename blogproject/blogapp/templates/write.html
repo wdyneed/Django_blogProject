@@ -13,6 +13,13 @@
         " rel="stylesheet">
 
     <title>블로그 게시물 작성</title>
+    <script>
+        {% comment %} // AI 글 자동완성
+        document.getElementById('aiAutocompleteButton').addEventListener('click', function() {
+            // 로딩 애니메이션 
+            document.getElementById('loading-animation').style.display = 'block';
+            document.getElementById('ai-img').style.display = 'none'; {% endcomment %}
+    </script>
 </head>
 
 <body>
@@ -58,7 +65,7 @@
                       <div id="loading-animation" style="display: none;">
                         <img src="{% static 'img/loading.gif' %}" alt="로딩 중" />
                       </div> 
-                      AI 글 자동완성
+                      AI 글 자동완성   
                     </button>
                                
                     <div class="box">
