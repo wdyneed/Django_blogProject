@@ -120,17 +120,17 @@ main {
 }
 
 
-.container{
+.container {
   width: 1024px;
   margin: auto;
-  margin-top: 40px;  
+  margin-top: 60px;
   display: flex;
-  gap: 38px; 
+  gap: 38px;
   flex-wrap: wrap;
 }
 
-.card{
-  width: calc((100% - (2 * 38px)) / 3); 
+.card {
+  width: calc((100% - (2 * 38px)) / 3);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -177,7 +177,7 @@ h3 {
 .SubInfo {
   color: #7c7c7c;
   display: flex;
-  margin-top : 10px;
+  margin-top: 10px;
   gap: 20px;
   font-size: 15px;
   white-space: pre-line;
@@ -248,7 +248,7 @@ span {
   text-align: center;
 }
 
-.pagination a {
+/* .pagination a {
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -258,7 +258,7 @@ span {
   color: black;
   border-radius: 50%;
   text-align: center;
-}
+} */
 
 .pagination a:hover {
   background-color: #ddd;
@@ -292,6 +292,6 @@ span {
 }
 
 #sort-select {
-  margin-left : 20px;
-  margin-top : 5px;
+  margin-left: 20px;
+  margin-top: 5px;
 }
