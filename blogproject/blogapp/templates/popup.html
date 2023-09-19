@@ -20,9 +20,9 @@
     function selectPost(button) {
         var selectedTitle = button.parentElement.getElementsByClassName('selected_post_title')[0].textContent;
         var selectedContent = button.parentElement.getElementsByClassName('selected_post_content')[0].textContent;
-
+        var curdata = window.opener.CKEDITOR.instances['id_content'].getData()
         var editor = window.opener.CKEDITOR.instances['id_content'];
-        editor.setData(selectedContent)
+        editor.setData(curdata + selectedContent)
 
         opener.document.getElementById('title').value = selectedTitle;
         window.close();
