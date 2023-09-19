@@ -8,8 +8,7 @@
     {% for post in posts %}
     <div>
         <p class='selected_post_title'>{{ post.title }}</p>
-        <p class='selected_post_content'>{{ post.content }}</p>
-        <br>
+        <p class='selected_post_content' style="display : none;">{{ post.content }}</p>
         <button onclick="selectPost(this)">선택</button>
         <button class='delete-button' data-post-id="{{ post.id }}">삭제</button>
     </div>
