@@ -54,9 +54,9 @@ def index(request, topic=None):
         posts = posts.filter(topic=topic)
         if representpost:
             if sort == 'views':
-                posts = posts.order_by('-view_count').exclude(id=representpost.id)
+                posts = posts.order_by('-view_count')
             else:
-                 posts = posts.order_by('-published_date').exclude(id=representpost.id)
+                 posts = posts.order_by('-published_date')
         else:
             pass
         posts_per_page = 6
@@ -69,10 +69,9 @@ def index(request, topic=None):
         representpost = Post.objects.filter(publish='Y').order_by('-view_count').first()
         if representpost:
             if sort == 'views':
-                posts = posts.order_by('-view_count').exclude(id=representpost.id)
+                posts = posts.order_by('-view_count')
             else:
-                 posts = posts.order_by('-published_date').exclude(id=representpost.id)
-        else:
+                 posts = posts.order_by('-published_date')
             pass
         posts_per_page = 6
         paginator = Paginator(posts, posts_per_page)

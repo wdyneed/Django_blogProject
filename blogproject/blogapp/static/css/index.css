@@ -248,17 +248,17 @@ span {
   text-align: center;
 }
 
-/* .pagination a {
+.pagination a {
   display: inline-block;
   width: 30px;
   height: 30px;
   line-height: 30px;
-  margin: 50px 2px;
+  margin: 25px 2px;
   text-decoration: none;
   color: black;
   border-radius: 50%;
   text-align: center;
-} */
+}
 
 .pagination a:hover {
   background-color: #ddd;
