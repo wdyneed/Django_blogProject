@@ -17,12 +17,10 @@ from .forms import PostForm
 import openai
 
 
-# Post 시리얼라이저인데 이 부분은 아래 index랑 비슷한 역할을 함 하지만 시리얼라이저로 구현할지 고민중
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-# 로그인 하는 곳 (아직 미구현)
 def custom_login(request):
     if request.user.is_authenticated:
         return redirect('/')
@@ -82,7 +80,6 @@ def index(request, topic=None):
 
 # 글 작성하는 함수
 def board_write(request):
-    # 현재 이 부분(selected_post_id) 쓸모 없음, 코드 수정시 수정해야할듯
     selected_post = None
     if request.method == 'POST':
         form = PostForm(request.POST, instance=selected_post)  # request.FILES를 사용하여 이미지 처리
